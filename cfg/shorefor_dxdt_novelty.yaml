@@ -1,0 +1,51 @@
+# Darwin.jl settings
+seed: 1
+d_fitness: 89
+n_population: 200
+n_elite: 10
+n_gen: 100000
+log_gen: 1
+save_gen: 25000
+m_rate: 0.1
+p_crossover: 0.0
+p_mutation: 1.0
+n_offsprings: 50
+max_offspring_per_parent: 5
+k: 50  # popsize
+Nq: 5  # keep small
+# CartesianGeneticProgramming.jl settings
+output_dir: outputs/temp_tests
+id: GLOBAL-NS-interval100
+rows: 1
+columns: 50
+recur: 0.0
+n_in: 9
+n_out: 1
+out_m_rate: 0.3
+n_parameters: 0
+param_max: 100
+functions: # MTCGP.jl functions
+  - f_diff
+  - f_reverse
+  - f_sum
+  - f_add
+  - f_subtract
+  - f_mult
+  - f_div
+  - f_abs
+  - f_sqrt
+  - f_pow
+  - f_sin
+  - f_cos
+  - f_sqrt_xy
+  - f_stddev
+  - f_mean
+  - f_irange
+  - f_lteq
+  - f_gt
+  - f_negate
+  - f_tpow
+  - f_nop
+  - f_integrate
+  - f_detrend
+  - f_conv
