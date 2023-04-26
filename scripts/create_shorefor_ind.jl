@@ -1,6 +1,6 @@
 using Random
 using CartesianGeneticProgramming
-include("../scripts/model_template_utils.jl")
+include("model_template_utils.jl")
 
 function get_test_ind(cfg::NamedTuple)
     local inputs, template, outputs

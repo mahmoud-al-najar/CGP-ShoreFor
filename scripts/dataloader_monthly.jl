@@ -1,9 +1,3 @@
-# if isdefined(Base, :Grisu)
-    # import Base.Grisu
-# else
-    # import Grisu
-# end
-
 using CSV
 using MAT
 using DataFrames
@@ -11,21 +5,17 @@ using GLPK
 using JuMP
 using Dates
 using Dierckx
-using Statistics
-
+# using Statistics
+using NaNStatistics
 
 const MATLAB_EPOCH = Dates.DateTime(-1,12,31)
 const MONTHLY_DATADIR = "/home/mn/Documents/data"
 date2num(d::Dates.DateTime) = Dates.value(d-MATLAB_EPOCH)/(1000*60*60*24)
 num2date(n::Number) =  MATLAB_EPOCH + Dates.Millisecond(round(Int64, n*1000*60*60*24))
 const INDEX_t = 4
-const INDEX_loc_shore = 5
-const INDEX_t_shore = 6
-const INDEX_P = 11
 
 interp1(x,v,xq) = Spline1D(x, v; k=1)(xq)
 # nanmean(x) = mean(filter(!isnan,x))
-# nanmedian(x) = median(filter(!isnan,x))
 # nanmaximum(x) = maximum(filter(!isnan,x))
 # nanminimum(x) = minimum(filter(!isnan,x))
 # nanstd(x) = std(filter(!isnan,x))
@@ -55,26 +45,6 @@ end
 
 function minmax_normalize(x::Array{Float64})
     return (x .- nanminimum(x)) ./ (nanmaximum(x) - nanminimum(x))
-end
-
-function full_series_to_years(t, xs; t_to_date=true)
-    yearly_ts = [[]]
-    yearly_xs = [[]]
-    
-    months = Dates.month.(num2date.(t))
-    for i in eachindex(months)
-        push!(yearly_ts[end], t[i])
-        push!(yearly_xs[end], xs[i])
-        if months[i] == 12
-            if t_to_date
-                yearly_ts[end] .= num2date.(yearly_ts[end])
-            end
-            push!(yearly_ts, [])
-            push!(yearly_xs, [])
-        end
-    end
-
-    return yearly_ts, yearly_xs
 end
 
 function fall_velocity(D, Tw)
@@ -147,18 +117,6 @@ function calcPb(H)  # ,T)
     return P
 end
 
-function moving_average(xs, _time, n_days)
-    @assert length(xs) == length(_time)
-    new_xs = similar(xs)
-    for xi in 1:length(xs)
-        t = _time[xi]
-        i_start = findfirst(_t -> _t >= t - (n_days/2.0), _time)
-        i_end = findlast(_t -> _t <= t + (n_days/2.0), _time)
-        new_xs[xi] = nanmean(xs[i_start:i_end])
-    end
-    new_xs
-end
-
 function _load_monthly_data(ds; d50=0.25, Tw=15, h=8, remove_means=false, normalize=false)
     t_waves = convert(Vector{Float64}, ds["time"][:])
     Tp = convert(Vector{Float64}, ds["tp"][:])
@@ -185,7 +143,6 @@ function _load_monthly_data(ds; d50=0.25, Tw=15, h=8, remove_means=false, normal
     if remove_means
         X, monthly_vals = remove_monthly_means(t_shore, X)
     end
-
     if normalize
         Tp = minmax_normalize(Tp)
         Hsb = minmax_normalize(Hsb)

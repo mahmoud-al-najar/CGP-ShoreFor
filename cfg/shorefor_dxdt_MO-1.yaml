@@ -4,15 +4,15 @@ d_fitness: 5
 n_population: 200
 n_elite: 10
 n_gen: 500000
-log_gen: 100
-save_gen: 25000
+log_gen: 1
+save_gen: 5
 m_rate: 0.1
 p_crossover: 0.0
 p_mutation: 1.0
 n_offsprings: 200
 # CartesianGeneticProgramming.jl settings
 # output_dir: /work/scratch/alnajam/CGP_outputs/NSGA-ii
-output_dir: /home/mn/JuliaProjects/CartesianGeneticProgramming.jl/outputs/temp_tests/global
+output_dir: outputs/runs
 id: MOGA-cgp-shorefor-mielke--monthly-5obj_sites_newins-run1
 rows: 1
 columns: 50
