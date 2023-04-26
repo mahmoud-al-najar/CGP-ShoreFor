@@ -1,7 +1,7 @@
 # Improving Shoreline Forecasting Models with Multi-Objective Genetic Programming
 by Al Najar, M., Almar, R., Bergsma, E. W., Delvit, J. M., & Wilson, D. G. (2023). This paper has been submitted for publication in Environmental Modelling & Software.
 
-In this work, symbolic regression is performed using CGP and NSGA-II to evolve symbolic models for shoreline forecasting. The initial population of CGP individuals are initialized as ShoreFor, a hybrid shoreline forecasting model [1].
+In this work, symbolic regression is performed using CGP and NSGA-II to evolve symbolic models for shoreline forecasting. The initial population of CGP individuals are initialized as ShoreFor, a hybrid shoreline forecasting model.
 
 <!-- ![](outputs/plots/graphs/models/nf-generalmodel-graph-NSGA-ii-ind1.png)
 *Caption for the example figure with the main results.* -->
