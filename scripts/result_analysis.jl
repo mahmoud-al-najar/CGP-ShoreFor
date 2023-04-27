@@ -10,7 +10,6 @@ using NaNStatistics
 using NumericalIntegration
 using CartesianGeneticProgramming
 include("model_template_utils.jl")
-include("shorefor_utils.jl")
 include("create_shorefor_ind.jl")
 include("evaluation_metrics.jl")
 include("dataloader_monthly.jl")
@@ -511,14 +510,14 @@ end
 #### load regular population inds
 all_inds = Array{CGPInd}(undef, 0)
 evolution_fits = Array{Float64}(undef, 20_000, cfg.d_fitness)
-for run in readdir("../CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor")
+for run in readdir("../backups/CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor")
     n_run = split(run, '-')[end]
     
     run_search = 500000
-    gen_path = "../CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor/MOGA_batch-shoreforinit-mielke--monthly-5obj_notforcedfunctional_nsgaii-$n_run/$run_search"
+    gen_path = "../backups/CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor/MOGA_batch-shoreforinit-mielke--monthly-5obj_notforcedfunctional_nsgaii-$n_run/$run_search"
     while !isdir(gen_path)
         run_search -= 25000
-        gen_path = "../CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor/MOGA_batch-shoreforinit-mielke--monthly-5obj_notforcedfunctional_nsgaii-$n_run/$run_search"
+        gen_path = "../backups/CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor/MOGA_batch-shoreforinit-mielke--monthly-5obj_notforcedfunctional_nsgaii-$n_run/$run_search"
     end
     println("$n_run: $gen_path")
     

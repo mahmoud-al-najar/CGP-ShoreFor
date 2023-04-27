@@ -53,18 +53,16 @@ function get_ind_from_template(cfg, model_template, inputs, outputs)
     buffer .= "-"
     buffer = vcat(inputs, buffer)
     
-    lnrng = LinRange(cfg.n_in+2,cfg.columns, length(ids))
+    lnrng = LinRange(cfg.n_in+1,cfg.columns, length(ids))
     indices = unique(Int.(ceil.(lnrng)))
+    println(indices)
     @assert length(indices) == length(ids)
     buffer[indices] .= ids
     
     xs = map((x1) -> findfirst(x2 -> x2==x1, buffer), xs)
     ys = map((x1) -> findfirst(x2 -> x2==x1, buffer), ys)
     fs = map((x1) -> findfirst(x2 -> x2==x1, string.(cfg.functions)), fs)
-    # for i in eachindex(xs)
-    #     println("$(ids[i])   $(xs[i])    $(buffer[indices[i]])    ")
-    # end
-
+    
     # fill empty y's with random values
     if cfg.recur == 0.0
         map((i) -> ys[i] = rand(1:i), findall(x -> isequal(x, nothing), ys))
@@ -81,26 +79,8 @@ function get_ind_from_template(cfg, model_template, inputs, outputs)
     chromo = genes_to_chromo(cfg, rand_ind.genes, outputs)
 
     ind = CGPInd(cfg, chromo)
-
-    # for i_print in collect(1:3)
-    #     println("============ $i_print")
-    #     ind_genes = ind.genes[:,:,i_print]
-    #     randind_genes = rand_ind.genes[:,:,i_print]
-    #     search_indices = collect(1:length(ind_genes))
-    #     i_unequal = findfirst(x -> ind_genes[x] != randind_genes[x], search_indices)
-    #     if !isequal(i_unequal, nothing)
-    #         println("i_unequal: ", i_unequal, "  ind_genes[i_unequal]: $(ind_genes[i_unequal])  randind_genes[i_unequal]: $(randind_genes[i_unequal])")
-    #     end
-    #     println("sum(ind.genes[:,:,$i_print] .!= rand_ind.genes[:,:,$i_print]): ", sum(ind.genes[:,:,i_print] .!= rand_ind.genes[:,:,i_print]))
-    #     println()
-    # end
     
-    # println(sum(ind.genes[:,indices .- cfg.n_in,:] .!= rand_ind.genes[:,indices .- cfg.n_in,:]))
-    # println(sum(ind.genes .!= rand_ind.genes))
-    # println()
-    
-    @assert sum(ind.genes[:,indices .- cfg.n_in,:] .!= rand_ind.genes[:,indices .- cfg.n_in,:]) == 0
-    # @assert sum(ind.genes .!= rand_ind.genes) == 0
+    # @assert sum(ind.genes[:,indices .- cfg.n_in,:] .!= rand_ind.genes[:,indices .- cfg.n_in,:]) == 0
     return ind
 end
 

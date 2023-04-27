@@ -9,7 +9,7 @@ using Statistics
 using NumericalIntegration
 using CartesianGeneticProgramming
 include("model_template_utils.jl")
-include("shorefor_functions.jl")
+# include("shorefor_functions.jl")
 include("create_shorefor_ind.jl")
 include("evaluation_metrics.jl")
 include("dataloader_monthly.jl")
@@ -21,6 +21,14 @@ cfg = get_config(cfg_filename; columns=50, n_in=9, n_out=1, n_population=200, d_
 
 ind_shorefor = get_fullmodel_shorefor_dxdt_v2(cfg)
 pure_shorefor_output_trace =  get_output_trace(ind_shorefor)
+
+function intersect_lists(shoreline_dnums, wave_dnums)
+    shoreline_dnums = vec(shoreline_dnums)
+    wave_dnums = vec(wave_dnums)
+    i_shorelines = findall(x -> x in wave_dnums, shoreline_dnums)
+    i_waves = findall(x -> x in shoreline_dnums, wave_dnums)
+    return i_shorelines, i_waves
+end
 
 function inputs_from_dataset(dataset)
     Tp, Hsb, Dir, dates_waves, loc_shore, t_shore, E, Sla, rivdis, omega, P,  t, phi = dataset
@@ -115,7 +123,7 @@ for s in collect(start_seed:end_seed)
             run!(e)
         end
     else
-        e = NSGA2Evolution(cfg, fit; logfile=logfile)#, init_function=make_shorefor_individual)
+        e = NSGA2Evolution(cfg, fit; logfile=logfile, init_function=make_shorefor_individual)
         run!(e)
     end
 end
