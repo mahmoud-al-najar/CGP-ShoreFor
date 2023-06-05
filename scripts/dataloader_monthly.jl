@@ -12,7 +12,20 @@ const MATLAB_EPOCH = Dates.DateTime(-1,12,31)
 const MONTHLY_DATADIR = "/home/mn/Documents/data"
 date2num(d::Dates.DateTime) = Dates.value(d-MATLAB_EPOCH)/(1000*60*60*24)
 num2date(n::Number) =  MATLAB_EPOCH + Dates.Millisecond(round(Int64, n*1000*60*60*24))
+#         1    2    3      4     5     6     7   8      9      10  11  12 
+# data = [Tp, Hsb, Dir, t_waves, X, t_shore, E, Sla, rivdis, omega, P, t]
+const INDEX_Tp = 1
+const INDEX_Hsb = 2
+const INDEX_Dir = 3
 const INDEX_t = 4
+const INDEX_loc_shore = 5
+const INDEX_t_shore = 6
+const INDEX_E = 7
+const INDEX_SLA = 8
+const INDEX_rivdis = 9
+const INDEX_omega = 10
+const INDEX_P = 11
+const INDEX_timestep = 12
 
 interp1(x,v,xq) = Spline1D(x, v; k=1)(xq)
 # nanmean(x) = mean(filter(!isnan,x))
@@ -154,7 +167,7 @@ function _load_monthly_data(ds; d50=0.25, Tw=15, h=8, remove_means=false, normal
         omega = minmax_normalize(omega)
         P = minmax_normalize(P)
     end
-
+    #       1    2    3      4     5     6       7       8       9   10  11 
     data = [Tp, Hsb, Dir, t_waves, X, t_shore, E, Sla, rivdis, omega, P, t]
     # @assert count(isnan, data[i]) == 0
     return data

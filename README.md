@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # Improving Shoreline Forecasting Models with Multi-Objective Genetic Programming
 by Al Najar, M., Almar, R., Bergsma, E. W., Delvit, J. M., & Wilson, D. G. (2023). This paper has been submitted for publication in Environmental Modelling & Software.
 
@@ -16,7 +18,7 @@ The Julia programming language is used throughout this work. All source code use
 
 The scripts included in this repository rely heavily on two other repositories:
 * [CartesianGeneticProgramming.jl](https://github.com/mahmoud-al-najar/CartesianGeneticProgramming.jl) for the implementations of CGP and NSGA-II, and
-* [Cambrian.jl]() as the base evolutionary computation framework. 
+* [Cambrian.jl](https://github.com/mahmoud-al-najar/Cambrian.jl) as the base evolutionary computation framework. 
 
 <!-- See the `README.md` files in each directory for a full description. -->
 
@@ -68,12 +70,16 @@ julia> include("scripts/result_analysis.jl")
 ```
 
 ## License
+    Copyright 2023 Mahmoud Al Najar
 
-<!-- All source code is made available under a BSD 3-clause license. You can freely use and modify the code, without warranty, so long as you provide attribution to the authors. See `LICENSE.md` for the full license text. -->
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-<!-- The manuscript text is not open source. The authors reserve the rights to the article content, which is currently submitted for publication in the JOURNAL NAME. -->
+        http://www.apache.org/licenses/LICENSE-2.0
 
-<!-- * bullet1
-* bullet2 -->
-
-<!-- [link](https://github.com/dbader/readme-template) -->
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
