@@ -55,7 +55,7 @@ function get_ind_from_template(cfg, model_template, inputs, outputs)
     
     lnrng = LinRange(cfg.n_in+1,cfg.columns, length(ids))
     indices = unique(Int.(ceil.(lnrng)))
-    println(indices)
+    # println(indices)
     @assert length(indices) == length(ids)
     buffer[indices] .= ids
     

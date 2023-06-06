@@ -26,4 +26,5 @@ Manifest.toml
 # Custom
 dev/
 outputs/
+data/
 .vscode/

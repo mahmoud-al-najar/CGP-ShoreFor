@@ -9,7 +9,7 @@ using Dierckx
 using NaNStatistics
 
 const MATLAB_EPOCH = Dates.DateTime(-1,12,31)
-const MONTHLY_DATADIR = "/home/mn/Documents/data"
+const MONTHLY_DATADIR = "data/"
 date2num(d::Dates.DateTime) = Dates.value(d-MATLAB_EPOCH)/(1000*60*60*24)
 num2date(n::Number) =  MATLAB_EPOCH + Dates.Millisecond(round(Int64, n*1000*60*60*24))
 #         1    2    3      4     5     6     7   8      9      10  11  12 
@@ -181,7 +181,7 @@ function load_monthly_dataset_GRANDPOPO(; calibration=false, remove_means=false,
     # ccc=0.79
     # mielke_skill=0.8
 
-    ds = matread("$MONTHLY_DATADIR/Sites_X_sla_ewave_rivdis.mat")["GrandPopo"]
+    ds = matread(joinpath(MONTHLY_DATADIR, "Sites_X_sla_ewave_rivdis.mat"))["GrandPopo"]
     data = _load_monthly_data(ds; remove_means=remove_means, normalize=normalize)
     data = [data..., phi]
     if !calibration
@@ -207,7 +207,7 @@ function load_monthly_dataset_NARRABEEN(;calibration=false, remove_means=false, 
     # rmse=2.14
     # ccc=0.48
     # mielke_skill=0.48
-    ds = matread("$MONTHLY_DATADIR/Sites_X_sla_ewave_rivdis.mat")["Narrabeen"]
+    ds = matread(joinpath(MONTHLY_DATADIR, "Sites_X_sla_ewave_rivdis.mat"))["Narrabeen"]
     data = _load_monthly_data(ds; remove_means=remove_means, normalize=normalize)
     for i in eachindex(data)
         data[i] = data[i][1:end-1]
@@ -239,7 +239,7 @@ function load_monthly_dataset_DUCK(;calibration=false, remove_means=false, norma
     # rmse=7.66
     # ccc=0.11
     # mielke_skill=0.12
-    ds = matread("$MONTHLY_DATADIR/Sites_X_sla_ewave_rivdis.mat")["Duck"]
+    ds = matread(joinpath(MONTHLY_DATADIR, "Sites_X_sla_ewave_rivdis.mat"))["Duck"]
     data = _load_monthly_data(ds; remove_means=remove_means, normalize=normalize)
     for i in eachindex(data)
         data[i] = data[i][71:end]
@@ -269,7 +269,7 @@ function load_monthly_dataset_TORREYPINES(;calibration=false, remove_means=false
     # rmse=10.88
     # ccc=0.38
     # mielke_skill=0.39
-    ds = matread("$MONTHLY_DATADIR/Sites_X_sla_ewave_rivdis.mat")["TorreyPines"]
+    ds = matread(joinpath(MONTHLY_DATADIR, "Sites_X_sla_ewave_rivdis.mat"))["TorreyPines"]
     data = _load_monthly_data(ds; remove_means=remove_means, normalize=normalize)
     data = [data..., phi]
     if !calibration
@@ -295,7 +295,7 @@ function load_monthly_dataset_TRUCVERT(;calibration=false, remove_means=false, n
     # rmse=29.47
     # ccc=0.12
     # mielke_skill=0.13
-    ds = matread("$MONTHLY_DATADIR/Sites_X_sla_ewave_rivdis.mat")["TrucVert"]
+    ds = matread(joinpath(MONTHLY_DATADIR, "Sites_X_sla_ewave_rivdis.mat"))["TrucVert"]
     data = _load_monthly_data(ds; remove_means=remove_means, normalize=normalize)
     data = [data..., phi]
     if !calibration

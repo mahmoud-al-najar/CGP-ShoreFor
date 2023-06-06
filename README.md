@@ -56,9 +56,23 @@ shell> cd path/to/CartesianGeneticProgramming.jl/
 (CartesianGeneticProgramming) pkg> precompile
 ```
 
+
+## Data
+The data and models presented in this work can be downloaded from: https://zenodo.org/record/8009621
+
+The original raw data for each site was obtained from the following sources:
+* Grand Popo: https://dx.doi.org/10.1088/2515-7620/ab8705
+* Narrabeen: https://doi.org/10.1038/sdata.2016.24
+* Duck: https://chlthredds.erdc.dren.mil/thredds/catalog/frf/catalog.html
+* Torrey Pines: https://doi.org/10.1038/s41597-019-0167-6
+* Truc Vert: https://doi.org/10.1038/s41597-020-00750-5
+
 ## Reproducing the results
 
-Once the CartesianGeneticProgramming Julia environment is setup, evolution can be launched as follows (taking into account any customization to the (dynamic) configuration file):
+Once the CartesianGeneticProgramming Julia environment is setup, the following variables should be adapted:=
+* VARNAME (filename.jl): TODO
+
+Finally, evolution can be launched as follows (taking into account any customization to the (dynamic) configuration file):
 ```
 shell> cd path/to/CGP-ShoreFor/
 julia> include("scripts/evolve_5sites.jl")
@@ -69,7 +83,7 @@ Similarly, to evaluate a set of evolved populations:
 julia> include("scripts/result_analysis.jl")
 ```
 
-## License
+<!-- ## License
     Copyright 2023 Mahmoud Al Najar
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -82,4 +96,4 @@ julia> include("scripts/result_analysis.jl")
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
-    limitations under the License.
+    limitations under the License. -->

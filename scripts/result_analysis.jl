@@ -510,14 +510,14 @@ end
 #### load regular population inds
 all_inds = Array{CGPInd}(undef, 0)
 evolution_fits = Array{Float64}(undef, 20_000, cfg.d_fitness)
-for run in readdir("../backups/CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor")
+for run in readdir("data/models/gens")
     n_run = split(run, '-')[end]
     
     run_search = 500000
-    gen_path = "../backups/CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor/MOGA_batch-shoreforinit-mielke--monthly-5obj_notforcedfunctional_nsgaii-$n_run/$run_search"
+    gen_path = "data/models/gens/cgpshorefor-5sites-nsgaii-$n_run/$run_search"
     while !isdir(gen_path)
         run_search -= 25000
-        gen_path = "../backups/CartesianGeneticProgramming.jl/outputs/NSGA-ii_results/final_runs_2/NSGA-ii/gens/shorefor/MOGA_batch-shoreforinit-mielke--monthly-5obj_notforcedfunctional_nsgaii-$n_run/$run_search"
+        gen_path = "data/models/gens/cgpshorefor-5sites-nsgaii-$n_run/$run_search"
     end
     println("$n_run: $gen_path")
     
@@ -584,10 +584,8 @@ function matrix_to_rows_array(mat)
     rows
 end
 
-outdir_nsgaii = "outputs/plots/ECJ_plots"
+outdir_nsgaii = "outputs/plots/EMS_plots"
 
-# cal_scores = evaluate_calibration_all_individuals(cfg, all_inds)
-# all_scores = evaluate_forecast_all_individuals(cfg, all_inds)
 cal_scores, all_scores = evaluate_calibration_forecast_all_individuals(cfg, all_inds)
 
 heatmap_plots(cal_scores, all_scores; pdf_path=outdir_nsgaii, plot_name="heatmaps_raw", png=true)
@@ -635,9 +633,6 @@ maxsorted_inds, maxorder = sortrows(all_inds[:], max_scores[:]); maxsorted_inds 
 mediansorted_inds, medianorder = sortrows(all_inds[:], median_scores[:]); mediansorted_inds = reverse(mediansorted_inds[:]); reverse!(medianorder);
 
 heatmap_plots(cal_scores[meanorder, :], all_scores[meanorder, :]; pdf_path=outdir_nsgaii, plot_name="heatmaps_reduced_forecastmeansort", png=true)
-
-# outdir_NS = "outputs/NS/bounded/plots/eval"
-# outdir_nsgaii = "outputs/temp_tests/NSGA-ii/plots"
 
 prefix = "nf-" # "nf-"
 algorithm = "NSGA-ii"  # "NS"
